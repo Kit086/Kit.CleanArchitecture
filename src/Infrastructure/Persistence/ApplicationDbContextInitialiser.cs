@@ -25,7 +25,7 @@ public class ApplicationDbContextInitialiser
     {
         try
         {
-            if (_context.Database.IsSqlServer())
+            if (_context.Database.IsMySql())
             {
                 await _context.Database.MigrateAsync();
             }
