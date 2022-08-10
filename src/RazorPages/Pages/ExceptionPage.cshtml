@@ -1,0 +1,15 @@
+@page
+@using RazorPages.Filters
+@model RazorPages.Pages.ExceptionPage
+
+@{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = "Exception";
+}
+
+<div>
+    <h1>@Model.FriendlyExceptionDetails.Title</h1>
+    <small>@Model.FriendlyExceptionDetails.Status.ToString()</small>
+    <p>@Model.FriendlyExceptionDetails.Message</p>
+</div>
+

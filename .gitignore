@@ -30,6 +30,9 @@ Obj/
 # Jetbrains Rider cache/options directory
 .idea/
 
+# Sqlite
+*.db
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*

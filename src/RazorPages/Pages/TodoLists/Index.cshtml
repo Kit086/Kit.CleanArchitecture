@@ -1,0 +1,165 @@
+@page
+@model Index
+
+@{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = "Todo";
+}
+
+<div>
+    <h1>Todo</h1>
+    <p>This is a simple todo list page.</p>
+
+    <div>
+        <div class="d-flex justify-content-between">
+            <h2>Lists</h2>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newListModal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"></path>
+                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"></path>
+                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"></path>
+                </svg>
+                New List
+            </button>
+        </div>
+        <div class="list-group pt-3">
+            @foreach (var item in Model.TodosVm.Lists)
+            {
+                <div class="list-group-item d-flex justify-content-between">
+                    <a asp-page="/TodoItems/Index" asp-route-listId="@item.Id" class="list-group-item-action text-decoration-none text-reset w-75">
+                        @item.Title
+                    </a>
+                    <div class="w-25 d-flex justify-content-between">
+                        <span>
+                            @item.Items.Count.ToString()
+                        </span>
+                        <div>
+                            <button class="btn btn-outline-success py-0 px-1 mx-1" data-bs-toggle="modal" data-bs-target="#editListModal" data-bs-list-title="@item.Title" data-bs-list-id="@item.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brush" viewBox="0 0 16 16">
+                                    <path d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.118 8.118 0 0 1-3.078.132 3.659 3.659 0 0 1-.562-.135 1.382 1.382 0 0 1-.466-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.201-.925 1.746-.896.126.007.243.025.348.048.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.176-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04zM4.705 11.912a1.23 1.23 0 0 0-.419-.1c-.246-.013-.573.05-.879.479-.197.275-.355.532-.5.777l-.105.177c-.106.181-.213.362-.32.528a3.39 3.39 0 0 1-.76.861c.69.112 1.736.111 2.657-.12.559-.139.843-.569.993-1.06a3.122 3.122 0 0 0 .126-.75l-.793-.792zm1.44.026c.12-.04.277-.1.458-.183a5.068 5.068 0 0 0 1.535-1.1c1.9-1.996 4.412-5.57 6.052-8.631-2.59 1.927-5.566 4.66-7.302 6.792-.442.543-.795 1.243-1.042 1.826-.121.288-.214.54-.275.72v.001l.575.575zm-4.973 3.04.007-.005a.031.031 0 0 1-.007.004zm3.582-3.043.002.001h-.002z"></path>
+                                </svg>
+                                Edit
+                            </button>
+                            <a class="btn btn-outline-info py-0 px-1 mx-1" asp-page="/TodoItems/Index" asp-route-listId="@item.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+                                </svg>
+                                Detail
+                            </a>
+                            <button type="button" class="btn btn-outline-danger py-0 px-1 mx-1" data-bs-toggle="modal" data-bs-target="#deleteListModal" data-bs-list-title="@item.Title" data-bs-list-id="@item.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                </svg>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@* New List Modal *@
+<div class="modal fade" id="newListModal" tabindex="-1" aria-labelledby="newListModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newListModalLabel">New List</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label asp-for="CreateTodoListCommandModel.Title" class="col-form-label">Title:</label>
+                        <input asp-for="CreateTodoListCommandModel.Title" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* Edit List Modal *@
+<div class="modal fade" id="editListModal" tabindex="-1" aria-labelledby="editListModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editListModalLabel">Edit List</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-page-handler="update">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input id="idOfUpdatedList" asp-for="UpdateTodoListCommandModel.Id" value="" hidden="hidden"/>
+                        <label asp-for="UpdateTodoListCommandModel.Title" class="col-form-label">Title:</label>
+                        <input id="titleOfUpdatedList" asp-for="UpdateTodoListCommandModel.Title" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* Delete List Model *@
+<div class="modal fade" id="deleteListModal" tabindex="-1" aria-labelledby="deleteListModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteListModalLabel">Delete List</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete list: <span id="titleOfDeletedList" class="text-danger"></span>
+            </div>
+            <div class="modal-footer">
+                <form asp-page-handler="delete">
+                    <input id="idOfDeletedList" asp-for="DeleteTodoListCommandModel.Id" value="" hidden="hidden"/>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+'use strict';
+
+const deleteListModal = document.getElementById('deleteListModal');
+deleteListModal.addEventListener('show.bs.modal', event => {
+  // Button that triggered the modal
+  const button = event.relatedTarget;
+  // Extract info from data-bs-* attributes
+  const listTitle = button.getAttribute('data-bs-list-title');
+  const listId = button.getAttribute('data-bs-list-id');
+  // Update the modal's content.
+  const titleOfDeletedListSpan = deleteListModal.querySelector('#titleOfDeletedList');
+  titleOfDeletedListSpan.textContent = listTitle;
+  const idOfDeletedList = deleteListModal.querySelector('#idOfDeletedList');
+  idOfDeletedList.setAttribute('value', listId);
+});
+
+const editListModal = document.getElementById('editListModal');
+editListModal.addEventListener('show.bs.modal', event => {
+  // Button that triggered the modal
+  const button = event.relatedTarget;
+  // Extract info from data-bs-* attributes
+  const listTitle = button.getAttribute('data-bs-list-title');
+  const listId = button.getAttribute('data-bs-list-id');
+  // Update the modal's content.
+  const titleOfUpdatedListInput = editListModal.querySelector('#titleOfUpdatedList');
+  titleOfUpdatedListInput.setAttribute('value', listTitle);
+  const idOfUpdatedList = editListModal.querySelector('#idOfUpdatedList');
+  idOfUpdatedList.setAttribute('value', listId);
+});
+</script>

@@ -1,0 +1,34 @@
+@page
+@model RazorPages.Pages.WeatherForecast.Index
+
+@{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = "WeatherForecast";
+}
+
+<div>
+    <h1>WeathetForecast</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Index</th>
+            <th>Date</th>
+            <th>Temp. (C)</th>
+            <th>Temp. (F)</th>
+            <th>Summary</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var (item, index) in Model.WeatherForecasts.Select((value, index) => (value, index)))
+        {
+            <tr>
+                <td>@index.ToString()</td>
+                <td>@item.Date.ToString("MM/dd/yyyy")</td>
+                <td>@item.TemperatureC.ToString()</td>
+                <td>@item.TemperatureF.ToString()</td>
+                <td>@item.Summary</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
