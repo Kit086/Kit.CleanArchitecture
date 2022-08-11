@@ -19,13 +19,11 @@
                     <div>
                         @if (item.Done)
                         {
-                            <label id="checkBoxLabel-@item.Id" class="form-check-label" for="checkBox-@index.ToString()">
-                                <del>@item.Title</del>
-                            </label>
+                            <label class="form-check-label"><del>@item.Title</del></label>
                         }
                         else
                         {
-                            <label id="checkBoxLabel-@item.Id" class="form-check-label" for="checkBox-@index.ToString()">@item.Title</label>
+                            <label class="form-check-label">@item.Title</label>
                         }
                     </div>
                     <div>
