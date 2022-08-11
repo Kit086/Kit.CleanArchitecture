@@ -47,7 +47,7 @@
 3. 创建一个你自己的项目文件夹，cd 到该文件夹下，运行命令 `dotnet new ca-sln-rp` 创建基于该模板的解决方案
 4. 数据库配置：
    - 想暂时使用 Sqlite 的话，cd 到 `src\RazorPages` 目录下，运行命令 `dotnet ef database update` 来创建 Sqlite 数据库文件
-   - 想使用 MariaDB 10.6 的话，首先配置好 appsettings.json 中的 DefaultConnection 数据库连接字符串，删除 `src\Infrastructure\Persistence\Migrations` 文件夹，cd 到 `src\Infrastructure` 目录下，运行 `dotnet ef migrations add Init --startup-project ..\src\RazorPages --output-dir .\Persistence\Migrations` 生成数据库迁移文件，然后 cd 到 `src\RazorPages` 目录下，运行命令 `dotnet ef database update` 来创建 Sqlite 数据库文件
+   - 想使用 MariaDB 10.6 的话，首先配置好 appsettings.json 中的 DefaultConnection 数据库连接字符串，然后将 appsettings.json 中 UseSqlite 的值改为 false，删除 `src\Infrastructure\Persistence\Migrations` 文件夹，cd 到 `src\Infrastructure` 目录下，运行 `dotnet ef migrations add Init --startup-project ..\src\RazorPages --output-dir .\Persistence\Migrations` 生成数据库迁移文件，然后 cd 到 `src\RazorPages` 目录下，运行命令 `dotnet ef database update` 来创建 Sqlite 数据库文件
 5. cd 到 `src\RazorPages` 目录下，运行 `dotnet run` 命令即可运行起项目
 
 默认用户名为 `administrator@localhost`
