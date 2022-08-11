@@ -1,94 +1,77 @@
- <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/jasontaylordev/CleanArchitecture/main/.github/icon.png" />
+ <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/Kit086/Kit.CleanArchitecture/main/.github/kiticon.png" />
  
- # Clean Architecture Solution Template
-[![.NET](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/dotnet-deploy.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/dotnet-deploy.yml)
-[![CodeQL](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql-analysis.yml)
-[![Nuget](https://img.shields.io/nuget/v/Clean.Architecture.Solution.Template?label=NuGet)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
-[![Nuget](https://img.shields.io/nuget/dt/Clean.Architecture.Solution.Template?label=Downloads)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
-[![Discord](https://img.shields.io/discord/893301913662148658?label=Discord)](https://discord.gg/p9YtBjfgGe)
-![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev?label=Follow&style=social)
+ # Clean Architecture Solution - Razor Pages Template
 
 
 <br/>
 
-This is a solution template for creating a Single Page App (SPA) with Angular and ASP.NET Core following the principles of Clean Architecture. Create a new project based on this template by clicking the above **Use this template** button or by installing and running the associated NuGet package (see Getting Started for full details). 
+这是一个 AspNetCore Razor Pages 的简洁架构解决方案模板（Clean Architecture Solution Template），fork 自 [jasontaylordev/CleanArchitecture](https://github.com/jasontaylordev/CleanArchitecture)。原项目是 Angular 的，但是我一般不使用 Angular 等前端框架和类库，所以改造了一个 Razor Pages 的模板。
 
-## Learn about Clean Architecture
+## 了解简洁架构
 
-[![Clean Architecture with ASP.NET Core 3.0 • Jason Taylor • GOTO 2019](https://img.youtube.com/vi/dK4Yb6-LxAk/0.jpg)](https://www.youtube.com/watch?v=dK4Yb6-LxAk)
+[Clean Architecture with ASP.NET Core 3.0 • Jason Taylor • GOTO 2019](https://www.youtube.com/watch?v=dK4Yb6-LxAk)
 
-## Technologies
+这是原作者 Jason Taylor 在 GOTO Conferences 上关于 AspNetCore 3.0 简洁架构的演讲，虽然 AspNetCore 3.0 已经老了（但是很多公司连 dotnet core 都还没用上），但是不妨碍我们借助 dotnet 代码理解简洁架构。
+
+顺便说一下，还有另一个优秀的简洁架构模板：[ardalis/CleanArchitecture](https://github.com/ardalis/CleanArchitecture)，作者也录制了很多课程来讲解简洁架构。该模板使用 Razor Pages，没有直接选择它是因为我第一次没有听懂 ardalis 的英语（我不熟悉英澳口音）。
+
+## 与原模板的区别
+
+1. 前端使用 Razor Pages，原模板使用 Angular (SPA)
+2. 开发环境使用 Sqlite，原模板使用 InMemoryDB：我不喜欢 InMemoryDB，我喜欢能看得到的真正的数据库
+3. 生产环境使用 MariaDB 10.6，原模板使用 SQL Server：我负担不起 SQL Server，用 docker 跑一个 Express 版本的都限制最小 2GB 内存，服务器费用太贵
+4. 业务参数校验（需要查数据库来确定某个字段是否唯一时）使用非异步的方法，原模板使用异步方法：Razor Pages 使用 FluentValidation 参数校验时 `MustAsync()` 抛异常，暂时改为 `Must()`
+5. 授权认证使用 Microsoft.AspNetCore.Identity，原模板使用 Microsoft.AspNetCore.ApiAuthorization.IdentityServer：这个库很神奇，依赖了很多第三方库，其中某个库使用了旧版本的 AutoMapper，让人怀疑它是否快要被放弃了。而且这个 Razor Pages 的模板也不需要为 Web API 做授权
+
+## TODO
+
+以下是我计划在未来完成的开发（我可能要出去打工了，遥遥无期）：
+1. 补充完测试代码
+2. 测试库从 NUnit + Moq 改为 XUnit + NSubstitite：因为我习惯使用后者
+3. 支持 MinimalAPI：因为很多人有 Razor Pages + Web API 的需求
+
+## 技术
 
 * [ASP.NET Core 6](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-6.0)
 * [Entity Framework Core 6](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 13](https://angular.io/)
+* AspNetCore Razor Pages
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)
 * [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
 
-## Getting Started
+## 开始使用
 
-The easiest way to get started is to install the [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) and run `dotnet new ca-sln`:
+1. 将本代码库 clone 到本地
+2. 在命令行中 cd 到有 .sln 文件的目录下，运行 `dotnet new --install .\`
+3. 创建一个你自己的项目文件夹，cd 到该文件夹下，运行命令 `dotnet new ca-sln-rp` 创建基于该模板的解决方案
+4. 数据库配置：
+   - 想暂时使用 Sqlite 的话，cd 到 `src\RazorPages` 目录下，运行命令 `dotnet ef database update` 来创建 Sqlite 数据库文件
+   - 想使用 MariaDB 10.6 的话，首先配置好 appsettings.json 中的 DefaultConnection 数据库连接字符串，删除 `src\Infrastructure\Persistence\Migrations` 文件夹，cd 到 `src\Infrastructure` 目录下，运行 `dotnet ef migrations add Init --startup-project ..\src\RazorPages --output-dir .\Persistence\Migrations` 生成数据库迁移文件，然后 cd 到 `src\RazorPages` 目录下，运行命令 `dotnet ef database update` 来创建 Sqlite 数据库文件
+5. cd 到 `src\RazorPages` 目录下，运行 `dotnet run` 命令即可运行起项目
 
-1. Install the latest [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
-2. Install the latest [Node.js LTS](https://nodejs.org/en/)
-3. Run `dotnet new --install Clean.Architecture.Solution.Template` to install the project template
-4. Create a folder for your solution and cd into it (the template will use it as project name)
-5. Run `dotnet new ca-sln` to create a new project
-6. Navigate to `src/WebUI` and launch the project using `dotnet run`
+默认用户名为 `administrator@localhost`
 
-Check out my [blog post](https://jasontaylor.dev/clean-architecture-getting-started/) for more information.
+默认密码为 `Administrator1!`
 
-### Database Configuration
-
-The template is configured to use an in-memory database by default. This ensures that all users will be able to run the solution without needing to set up additional infrastructure (e.g. SQL Server).
-
-If you would like to use SQL Server, you will need to update **WebUI/appsettings.json** as follows:
-
-```json
-  "UseInMemoryDatabase": false,
-```
-
-Verify that the **DefaultConnection** connection string within **appsettings.json** points to a valid SQL Server instance. 
-
-When you run the application the database will be automatically created (if necessary) and the latest migrations will be applied.
-
-### Database Migrations
-
-To use `dotnet-ef` for your migrations first ensure that "UseInMemoryDatabase" is disabled, as described within previous section.
-Then, add the following flags to your command (values assume you are executing from repository root)
-
-* `--project src/Infrastructure` (optional if in this folder)
-* `--startup-project src/WebUI`
-* `--output-dir Persistence/Migrations`
-
-For example, to add a new migration from the root folder:
-
- `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Persistence\Migrations`
-
-## Overview
+## 概览
 
 ### Domain
 
-This will contain all entities, enums, exceptions, interfaces, types and logic specific to the domain layer.
+这一层包含所有特定于领域层的实体、枚举、异常、接口、类型和逻辑。 
 
 ### Application
 
-This layer contains all application logic. It is dependent on the domain layer, but has no dependencies on any other layer or project. This layer defines interfaces that are implemented by outside layers. For example, if the application need to access a notification service, a new interface would be added to application and an implementation would be created within infrastructure.
+这一层包含所有应用程序逻辑。它依赖于 Domain 层，但不依赖于任何其他层或项目。这一层定义了由外部的层实现的接口。例如如果应用程序需要访问通知服务，那么应该在 Application 层添加一个新接口，并在 Infrastructure 层中创建一个实现。 
 
 ### Infrastructure
 
-This layer contains classes for accessing external resources such as file systems, web services, smtp, and so on. These classes should be based on interfaces defined within the application layer.
+这一层包含用于访问外部资源的类，如文件系统、web 服务、smtp 等。这些类应该基于在 Application 层中定义的接口。 
 
-### WebUI
+### Razor Pages
 
-This layer is a single page application based on Angular 13 and ASP.NET Core 6. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
+这一层是一个基于 AspNetCore 的 Razor Pages 应用。这一层同时依赖于 Application 层和 Infrastructure 层，但对 Infrastructure 层的依赖只是为了依赖注入。
 
-## Support
+## 许可证
 
-If you are having problems, please let us know by [raising a new issue](https://github.com/jasontaylordev/CleanArchitecture/issues/new/choose).
-
-## License
-
-This project is licensed with the [MIT license](LICENSE).
+该项目使用 [MIT license](LICENSE).
