@@ -10,7 +10,7 @@
   "name": "Clean Architecture Solution - Razor Pages",
   "description":  "This is a test.",
   "identity": "Clean.Architecture.Solution.CSharp.Razor.Pages",
-  "groupIdentity": "Clean.Architecture.Solution",
+  "groupIdentity": "Clean.Architecture.Solution.Razor.Pages",
   "shortName": "ca-sln-rp",
   "tags": {
     "language": "C#",
