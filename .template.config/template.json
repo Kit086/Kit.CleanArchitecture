@@ -1,17 +1,17 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "JasonTaylorDev",
+  "author": "KitLau",
   "classifications": [
     "Web",
-    "SPA",
     "ASP.NET",
+    "Razor Pages",
     "Clean Architecture"
   ],
-  "name": "Clean Architecture Solution",
+  "name": "Clean Architecture Solution - Razor Pages",
   "description":  "This is a test.",
-  "identity": "Clean.Architecture.Solution.CSharp",
+  "identity": "Clean.Architecture.Solution.CSharp.Razor.Pages",
   "groupIdentity": "Clean.Architecture.Solution",
-  "shortName": "ca-sln",
+  "shortName": "ca-sln-rp",
   "tags": {
     "language": "C#",
     "type": "project"
