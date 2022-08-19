@@ -1,4 +1,4 @@
- **This repository is no longer maintained, please move to [Kit086/CleanArchitecture](https://github.com/Kit086/CleanArchitecture)
+ **This repository is no longer maintained, please move to [Kit086/CleanArchitecture](https://github.com/Kit086/CleanArchitecture)**
  
  <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/Kit086/Kit.CleanArchitecture/main/.github/kiticon.png" />
  
